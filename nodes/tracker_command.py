@@ -65,7 +65,7 @@ class TrackerCommand():
         self.joints_active = False
         
         # Initialize the robot in the stopped state.
-        self.tracker_command = "STOP"
+        self.tracker_command = "TELEOP_JOINTS"
         
         rospy.loginfo("Initializing Tracker Command Node...")
         

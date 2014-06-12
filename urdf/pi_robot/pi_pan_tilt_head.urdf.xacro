@@ -8,8 +8,8 @@
    
   <property name="camera_mesh_scale" value="1.0" />
    
-  <xacro:include filename="$(find rbx2_description)/urdf/pi_robot/dynamixel_head_hardware.xacro" />
-  <xacro:include filename="$(find rbx2_description)/urdf/pi_robot/kinect.urdf.xacro" />
+  <xacro:include filename="$(find pi_tracker)/urdf/pi_robot/dynamixel_head_hardware.xacro" />
+  <xacro:include filename="$(find pi_tracker)/urdf/pi_robot/kinect.urdf.xacro" />
 
   <macro name="head" params="parent name color *origin">
     <!-- head base joint -->

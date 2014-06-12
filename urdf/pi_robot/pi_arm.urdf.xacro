@@ -2,7 +2,7 @@
 
 <robot name="arm" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find rbx2_description)/urdf/pi_robot/dynamixel_arm_hardware.xacro" />
+  <xacro:include filename="$(find pi_tracker)/urdf/pi_robot/dynamixel_arm_hardware.xacro" />
 
   <macro name="arm" params="side reflect parent color *origin"> 
     <link name="${side}_arm_base_link" />     

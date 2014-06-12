@@ -181,10 +181,45 @@ class TrackerJointController():
             left_shoulder_hand.Normalize()                           
 
             left_arm_shoulder_lift_angle = asin(left_shoulder_elbow.y()) + self.HALF_PI           
-            left_arm_shoulder_pan_angle = asin(left_arm_elbow_flex_hand.x())
+            left_arm_shoulder_pan_angle = asin(left_shoulder_elbow.x())         #left_arm_elbow_flex_hand
             left_arm_elbow_flex_angle = -acos(KDL.dot(left_shoulder_elbow, left_arm_elbow_flex_hand))
             left_arm_wrist_flex_angle = -left_arm_elbow_flex_angle / 2.0
             left_arm_elbow_flex_angle = left_arm_elbow_flex_angle / 4.0
+
+            right_arm_shoulder_lift_joint_lower_limit = 0.0
+            right_arm_shoulder_lift_joint_upper_limit = -2.617
+
+            left_arm_shoulder_lift_joint_upper_limit = 0.0
+            left_arm_shoulder_lift_joint_lower_limit = 2.617
+
+            right_arm_shoulder_pan_joint_lower_limit = -1.8
+            right_arm_shoulder_pan_joint_upper_limit = 0.0
+
+            left_arm_shoulder_pan_joint_upper_limit = 1.8
+            left_arm_shoulder_pan_joint_lower_limit = 0.0
+
+            right_arm_elbow_flex_joint_lower_limit = 0.0
+            right_arm_elbow_flex_joint_upper_limit = 0.65
+
+            left_arm_elbow_flex_joint_upper_limit = 0.0
+            left_arm_elbow_flex_joint_lower_limit = -0.65
+
+            
+            left_arm_shoulder_lift_angle = (left_arm_shoulder_lift_angle)*(1/left_arm_shoulder_lift_joint_lower_limit)
+
+            if(left_arm_shoulder_pan_angle < 0.0):
+                left_arm_shoulder_pan_angle = (left_arm_shoulder_pan_angle)*(1/left_arm_shoulder_pan_joint_upper_limit)
+            else:
+            	left_arm_shoulder_pan_angle = 0.0
+
+
+            if(left_arm_elbow_flex_angle < 0.0):
+                left_arm_elbow_flex_angle = (left_arm_elbow_flex_angle)*(1/left_arm_elbow_flex_joint_lower_limit)
+            else:
+            	left_arm_elbow_flex_angle = 0.0
+            
+
+            print 'left_arm_elbow_flex_angle : ',left_arm_elbow_flex_angle
             
             self.cmd_joints.position[self.cmd_joints.name.index('left_arm_shoulder_lift_joint')] = left_arm_shoulder_lift_angle
             self.cmd_joints.velocity[self.cmd_joints.name.index('left_arm_shoulder_lift_joint')] = self.default_joint_speed
@@ -221,16 +256,33 @@ class TrackerJointController():
             right_arm_elbow_flex_hand = self.skeleton['position']['right_hand'] - self.skeleton['position']['right_elbow']
             right_shoulder_hand = self.skeleton['position']['left_hand'] - self.skeleton['position']['left_shoulder']
             
+            print right_shoulder_neck
             right_shoulder_neck.Normalize()
             right_shoulder_elbow.Normalize()
             rh = right_arm_elbow_flex_hand.Normalize()
             right_shoulder_hand.Normalize()                
 
             right_arm_shoulder_lift_angle = -(asin(right_shoulder_elbow.y()) + self.HALF_PI)
-            right_arm_shoulder_pan_angle = -asin(right_arm_elbow_flex_hand.x())
+            right_arm_shoulder_pan_angle = -asin(right_shoulder_elbow.x())
             right_arm_elbow_flex_angle = acos(KDL.dot(right_shoulder_elbow, right_arm_elbow_flex_hand))
             right_arm_wrist_flex_angle = -right_arm_elbow_flex_angle / 2.0
             right_arm_elbow_flex_angle = right_arm_elbow_flex_angle / 4.0
+
+
+            right_arm_shoulder_lift_angle = (right_arm_shoulder_lift_angle)*(1/right_arm_shoulder_lift_joint_upper_limit)
+
+            if(right_arm_shoulder_pan_angle < 0.0):
+                right_arm_shoulder_pan_angle = (right_arm_shoulder_pan_angle)*(1/right_arm_shoulder_pan_joint_lower_limit)
+            else:
+				right_arm_shoulder_pan_angle = 0.0
+
+            if(right_arm_elbow_flex_angle > 0.0):
+                right_arm_elbow_flex_angle = (right_arm_elbow_flex_angle)*(1/right_arm_elbow_flex_joint_upper_limit)
+            else:
+            	right_arm_elbow_flex_angle = 0.0
+            
+            print 'right_arm_elbow_flex_angle : ', right_arm_elbow_flex_angle
+            
                             
             self.cmd_joints.position[self.cmd_joints.name.index('right_arm_shoulder_lift_joint')] = right_arm_shoulder_lift_angle
             self.cmd_joints.velocity[self.cmd_joints.name.index('right_arm_shoulder_lift_joint')] = self.default_joint_speed
