@@ -1,0 +1,29 @@
+roslaunch pi_tracker skeleton.launch
+
+roslaunch pi_tracker tracker.launch
+
+roslaunch skeleton_markers markers.launch
+
+rosrun rviz rviz
+
+step 1: calibrate
+
+step 2:close your arms
+
+step 3:picking up legs has different effects
+
+zeno-simulation-interface:
+
+rosrun tracker_listener zeno_skeleton_control_node
+
+~/skeleton_tracking/zeno/pub_sub/build/install/pub_sub/bin/
+./pub_sub com.github.zeno.pub_sub.Listener
+
+rosbag record -a
+
+
+
+
+========================================================================================
+joint_states
+['head_pan_joint', 'base_l_wheel_joint', 'right_arm_wrist_flex_joint', 'left_arm_forearm_flex_joint', 'right_arm_shoulder_pan_joint', 'right_arm_elbow_flex_joint', 'right_arm_forearm_flex_joint', 'right_arm_shoulder_roll_joint', 'left_arm_shoulder_lift_joint'(8), 'left_arm_wrist_flex_joint', 'left_arm_shoulder_pan_joint'(10), 'base_r_wheel_joint', 'head_tilt_joint', 'right_arm_shoulder_lift_joint', 'left_arm_shoulder_roll_joint', 'left_arm_elbow_flex_joint']
